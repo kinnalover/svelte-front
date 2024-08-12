@@ -1,11 +1,17 @@
 import { redirect } from "@sveltejs/kit"
 import type { Actions, PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async () => {}
+export const load: PageServerLoad = async ({locals}) => {
+	return {
+		user: locals.user,
+	}
+}
 
 export const actions: Actions = {
-	login: async ({ cookies }) => {
+	login: async ({ cookies, locals}) => {
+		
 		cookies.set("auth", "regularusertoken", {
+
 			path: "/",
 			httpOnly: true,
 			sameSite: "strict",
