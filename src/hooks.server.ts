@@ -6,7 +6,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (event.url.pathname.startsWith("/protected")){
 		if (!event.locals.user){
-			throw redirect(303, '/')
+			throw redirect(303, '/login')
 		}
 	}
 
