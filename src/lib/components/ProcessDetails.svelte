@@ -82,5 +82,6 @@ button {
 
 button:hover {
     opacity: 0.9;
+    background-color: #1abc9c;
 }
 </style>

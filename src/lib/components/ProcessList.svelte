@@ -108,7 +108,7 @@ li {
 }
 
 .process-link:hover {
-  background-color: #0056b3;
+  background-color: #1abc9c;
 }
 /* Table styling */
 .styled-table {

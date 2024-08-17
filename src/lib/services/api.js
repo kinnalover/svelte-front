@@ -36,6 +36,7 @@ export async function fetchMachineById(id) {
     }
     return await response.json();
 }
+
 export async function fetchTriggers() {
     const response = await fetch(`${BASE_URL}/triggers/`);
     if (!response.ok) {

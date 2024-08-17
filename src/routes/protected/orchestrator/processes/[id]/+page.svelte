@@ -17,6 +17,11 @@
       <p>Last run: {data.props.process.last_run || 'Not available'}</p>
       <p>Created at: {new Date(data.props.process.created_at).toLocaleString()}</p>
   </div>
+  {#if data.props.jobs}
+  <div>
+    <h1>{data.props.jobs.id}</h1>
+  </div>
+  {/if}
 {:else}
   <p>Loading...</p>
 {/if}
