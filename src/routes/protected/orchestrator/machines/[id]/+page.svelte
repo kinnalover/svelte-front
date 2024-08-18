@@ -10,7 +10,7 @@
         <p>{data.props.error.message}</p>
     </div>
   {:else if data.props.machine}
-    <div class="process-details">
+    <div class="process-details" id="process-details">
         <h1>{data.props.machine.name}</h1>
         <p>{data.props.machine.ip_address}</p>
         <p>Status: {data.props.machine.status}</p>

@@ -20,11 +20,20 @@
   let createbutton = false;
   // Navigate to the specific process page
   function viewProcess(processName) {
+    const processElement = document.getElementById("process-details");
+    if (processElement) {
+      processElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    else {
+      console.log("there is not process-details");
+      
+    }
     goto(`/protected/orchestrator/processes/${processName}`);
+    
   }
   let name = '';
-    let description = '';
-    let repository_url = '';
+  let description = '';
+  let repository_url = '';
 
   async function handleCreateProcess(event){
     event.preventDefault(); // Prevent default form behavior
@@ -44,8 +53,8 @@
   }
 </script>
 
-<div>
-  <button on:click={() => createbutton = !createbutton}>Create a process</button>
+<div >
+  <button on:click={() => createbutton = !createbutton} class='btn-create'>Create a process</button>
 </div>
 {#if createbutton == true}
 <form on:submit|preventDefault={handleCreateProcess}>
@@ -88,6 +97,10 @@
 
 
 <style>
+.btn-create{
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
 ul {
   list-style-type: none;
   padding: 0;

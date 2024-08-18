@@ -2,6 +2,7 @@
     import ProcessList from './ProcessList.svelte';
     import MachineList from './MachineList.svelte';
     import Triggers  from  './Triggers.svelte';
+    import Jobs from './Jobs.svelte';
   
     let activeTab = 'processes';
   </script>
@@ -9,6 +10,7 @@
     <button on:click={() => activeTab = 'processes'}>Processes</button>
     <button on:click={() => activeTab = 'machines'}>Machines</button>
     <button on:click={() => activeTab = 'triggers'}>Triggers</button>
+    <button on:click={() => activeTab = 'jobs'}>Jobs</button>
     <!-- Add more buttons as needed -->
   </div>
   <div class="dashboard">
@@ -21,6 +23,9 @@
       {/if}
       {#if activeTab === 'triggers'}
         <Triggers/>
+      {/if}
+      {#if activeTab === 'jobs'}
+        <Jobs/>
       {/if}
       <!-- Add more conditional renders based on activeTab -->
     </div>

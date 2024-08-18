@@ -112,11 +112,11 @@
       <p>RPA is AI at work.</p>
       <div class="cta-buttons">
         <button>Watch now</button>
-        <button>Try UiPath free</button>
+        <button>Try RPA free</button>
       </div>
     </section>
   </main>
   
   <footer>
-    <p>&copy; 2023 UiPath. All rights reserved.</p>
+    <p>&copy; 2024 Halyk Bank. All rights reserved.</p>
   </footer>
