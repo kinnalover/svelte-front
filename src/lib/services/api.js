@@ -156,3 +156,99 @@ export async function createTrigger(Data) {
         console.error('Error adding Job:', error);
     }
 }
+
+
+export async function retryJob(job_id) {
+    try {
+        const Data = {
+            "job_id" : job_id,
+            "status" : "pending"
+        }
+        console.log("machine_data:",JSON.stringify(Data));
+        
+        const response = await fetch('http://localhost:5000/jobs/update_job', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Data),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();  // Get the detailed error response
+            console.log('Error:', errorData);
+            // Optionally display the error to the user
+            alert(`Error: ${JSON.stringify(errorData.detail)}`);
+            return;
+            
+        }
+
+        const data = await response.json();
+        console.log('Job added successfully:', data);
+        return data; // You can return the data if needed
+    } catch (error) {
+        console.error('Error adding Job:', error);
+    }
+}
+export async function stopJob(job_id) {
+    try {
+        const Data = {
+            "job_id" : job_id,
+            "status" : "stopped"
+        }
+        console.log("machine_data:",JSON.stringify(Data));
+        
+        const response = await fetch('http://localhost:5000/jobs/update_job', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Data),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();  // Get the detailed error response
+            console.log('Error:', errorData);
+            // Optionally display the error to the user
+            alert(`Error: ${JSON.stringify(errorData.detail)}`);
+            return;
+            
+        }
+
+        const data = await response.json();
+        console.log('Job added successfully:', data);
+        return data; // You can return the data if needed
+    } catch (error) {
+        console.error('Error adding Job:', error);
+    }
+}
+export async function fetchLogs(job_id) {
+    try {
+        const Data = {
+            "job_id": job_id
+        }
+        
+        const response = await fetch('http://localhost:5000/jobs/getLogsByJobId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Data),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();  // Get the detailed error response
+            console.log('Error:', errorData);
+            // Optionally display the error to the user
+            alert(`Error: ${JSON.stringify(errorData.detail)}`);
+            return;
+            
+        }
+
+        const data = await response.json();
+        console.log('Job added successfully:', data);
+        return data; // You can return the data if needed
+    } catch (error) {
+        console.error('Error adding Job:', error);
+    }
+}
