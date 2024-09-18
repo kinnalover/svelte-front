@@ -3,16 +3,23 @@
   import { fetchMachines, createMachine} from '$lib/services/api.js';
   import { machines } from '$lib/stores/machines.js';
   import { goto } from '$app/navigation';
+  import { formatDateTime } from '$lib/services/utils';
+
+
   onMount(async () => {
     goto('/protected/orchestrator')
+    await loadMachines()
+    setInterval(loadMachines, 10000)
+  });
+
+  async function loadMachines(){
     try {
       const data = await fetchMachines();
       machines.set(data);
     } catch (error) {
       console.error('Error loading machines:', error);
     }
-  });
-
+  }
   function viewMachine(machineId) {
     goto(`/protected/orchestrator/machines/${machineId}`);
   } 
@@ -67,8 +74,8 @@
               </button></td>
               <td>{machine.ip_address}</td>
               <td>{machine.status}</td>
-              <td>{machine.last_heartbeat}</td>
-              <td>{machine.created_at}</td>
+              <td>{formatDateTime(machine.last_heartbeat)}</td>
+              <td>{formatDateTime(machine.created_at)}</td>
               
           </tr>
           {/each}

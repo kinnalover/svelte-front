@@ -6,7 +6,7 @@
   import {processes} from '$lib/stores/processes';
   import {machines} from '$lib/stores/machines';
   import { goto } from '$app/navigation';
-  
+  import { formatDateTime } from '$lib/services/utils';
   let selectedProcess = null;
   let selectedMachine = null;
   let schedule_type = 'once'; // Options: once, daily, workingDays, customDays
@@ -36,7 +36,17 @@
       console.error('Error loading machines:', error);
     }
   });
+  
+  function getProcessName(process_id) {
+        const process = $processes.find(p => p.id === process_id);
+        return process ? process.name : 'Unknown process';
+    }
 
+    // Function to find machine name by machine_id
+    function getMachineName(machine_id) {
+        const machine = $machines.find(m => m.id === machine_id);
+        return machine ? machine.ip_address : 'Unknown machine';
+    }
   let createbutton = false;
   // Navigate to the specific process page
   function viewProcess(jobName) {
@@ -143,12 +153,12 @@
           <!-- <td><button on:click={() => viewProcess(trigger.id)} class="process-link">
             {trigger.name}
           </button></td> -->
-          <td>{trigger.process_id}</td>
-          <td>{trigger.machine_id}</td>
+          <td>{getProcessName(trigger.process_id) }</td>
+          <td>{getMachineName(trigger.machine_id)}</td>
           <td>{trigger.schedule_type}</td>
-          <td>{trigger.selected_days}</td>
+          <td>{trigger.selected_days ? trigger.selected_days : '-'}</td>
           <td>{trigger.schedule_time}</td>
-          <td>{trigger.created_at}</td>
+          <td>{formatDateTime(trigger.created_at)}</td>
       </tr>
       {/each}
   </tbody>

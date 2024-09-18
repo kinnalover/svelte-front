@@ -7,7 +7,7 @@
     import {processes} from '$lib/stores/processes';
     import {machines} from '$lib/stores/machines';
     import { goto } from '$app/navigation';
-    
+    import { formatDateTime } from '$lib/services/utils';
     let selectedProcess = null;
     let selectedMachine = null;
     let showLogsModal = false;
@@ -35,7 +35,17 @@
       }
       setInterval(loadJobs, 10000)
     });
+    
+    function getProcessName(process_id) {
+        const process = $processes.find(p => p.id === process_id);
+        return process ? process.name : 'Unknown process';
+    }
 
+    // Function to find machine name by machine_id
+    function getMachineName(machine_id) {
+        const machine = $machines.find(m => m.id === machine_id);
+        return machine ? machine.ip_address : 'Unknown machine';
+    }
     function connectToLogStream(jobId) {
         // Establish WebSocket connection
         socket = new WebSocket(`ws://localhost:5000/ws/logs/${jobId}`);
@@ -89,6 +99,8 @@
       try {
         const data = await fetchJobs();
         jobs.set(data); // Update the jobs store with fetched jobs
+        console.log(data);
+        
       } catch (error) {
         console.error('Error fetching jobs:', error);
       }
@@ -195,12 +207,12 @@
             <td><button on:click={() => viewProcess(job.id)} class="process-link">
               {job.name}
             </button></td>
-            <td>{job.process_id}</td>
-            <td>{job.machine_id}</td>
+            <td>{getProcessName(job.process_id)}</td>
+            <td>{getMachineName(job.machine_id)}</td>
             <td>{job.status}</td>
-            <td>{job.start_time}</td>
-            <td>{job.end_time}</td>
-            <td>{job.created_at}</td>
+            <td>{formatDateTime(job.start_time)}</td>
+            <td>{formatDateTime(job.end_time)}</td>
+            <td>{formatDateTime(job.created_at)}</td>
             <td>
               {#if job.status === 'completed'}
               <button on:click={() => handleRetry(job.id)} class="icon-btn retry-btn">
