@@ -63,20 +63,17 @@
               <th>IP address</th>
               <th>Status</th>
               <th>Last Heartbeat</th>
-              <th>Create At</th>
           </tr>
       </thead>
       <tbody>
         {#each $machines as machine}
-          <tr>
+          <tr class={machine.status === 'online' ? 'success-row' : 'fail-row'}>
               <td><button on:click={() => viewMachine(machine.id)} class="process-link">
                 {machine.name}
               </button></td>
               <td>{machine.ip_address}</td>
               <td>{machine.status}</td>
               <td>{formatDateTime(machine.last_heartbeat)}</td>
-              <td>{formatDateTime(machine.created_at)}</td>
-              
           </tr>
           {/each}
       </tbody>
@@ -116,7 +113,14 @@ ul {
 li {
   margin: 1rem 0;
 }
-
+.success-row {
+    background-color: #078a03; /* Green background for success rows */
+    color: white; /* White text for contrast */
+}
+.fail-row {
+    background-color: #ac170d; /* Green background for success rows */
+    color: white;/* White text for contrast */
+}
 .process-link {
   background-color: #007bff;
   color: white;
@@ -151,9 +155,9 @@ li {
         border-bottom: 1px solid #dddddd;
     }
 
-    .styled-table tbody tr:nth-of-type(even) {
+    /* .styled-table tbody tr:nth-of-type(even) {
         background-color: #220969;
-    }
+    } */
 
     .styled-table tbody tr:hover {
         background-color: #0c1274;
@@ -173,7 +177,7 @@ li {
 
     button {
         padding: 10px;
-        background-color: #3498db;
+        background-color: #1abc9c;
         color: white;
         border: none;
         border-radius: 5px;

@@ -190,7 +190,6 @@
   <table class="styled-table">
     <thead>
         <tr>
-            <th>Name</th>
             <th>Process</th>
             <th>Machine</th>
             <th>Status</th>
@@ -203,10 +202,7 @@
     </thead>
     <tbody>
       {#each $jobs as job}
-        <tr>
-            <td><button on:click={() => viewProcess(job.id)} class="process-link">
-              {job.name}
-            </button></td>
+        <tr class={job.status === 'completed' ? 'success-row' : ''}>
             <td>{getProcessName(job.process_id)}</td>
             <td>{getMachineName(job.machine_id)}</td>
             <td>{job.status}</td>
@@ -276,6 +272,7 @@
 .btn-create {
     text-align: left;
     padding: 0.5rem 1rem;
+    background-color: #1abc9c;
 }
 
 ul {
@@ -286,7 +283,10 @@ ul {
 li {
     margin: 1rem 0;
 }
-
+.success-row {
+    background-color: #175cac; /* Green background for success rows */
+    color: white; /* White text for contrast */
+}
 .process-link {
     background-color: #007bff;
     color: white;
@@ -322,12 +322,12 @@ li {
     border-bottom: 1px solid #dddddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #220969;
-}
+/* .styled-table tbody tr:nth-of-type(even) {
+    background-color: #683fd8;
+} */
 
 .styled-table tbody tr:hover {
-    background-color: #0c1274;
+    background-color: #2d34c2;
 }
 
 form {
